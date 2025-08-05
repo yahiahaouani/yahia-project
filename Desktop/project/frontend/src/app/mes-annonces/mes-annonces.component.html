@@ -1,0 +1,68 @@
+<!-- NAVBAR -->
+<header class="navbar">
+  <div class="left">
+    <div class="logo">
+      <img src="https://cdn-icons-png.flaticon.com/512/3144/3144456.png" alt="Logo" class="logo-img" />
+      <span>My Meuble</span>
+    </div>
+    <div class="contact">Contactez-nous : +216 95 256 096</div>
+    <div>Développé par l'ingénieur Yahia Haouani</div>
+  </div>
+
+  <nav>
+    <a routerLink="/favoris" class="nav-link">
+      <img src="https://cdn-icons-png.flaticon.com/512/1077/1077035.png" class="nav-icon" />
+      Mes favoris
+    </a>
+
+    <div class="user-info">
+      <img src="https://cdn-icons-png.flaticon.com/512/1946/1946429.png" class="nav-icon" alt="user" />
+      <span>{{ user?.nom }}</span>
+      <button (click)="logout()" class="logout-btn">Déconnexion</button>
+    </div>
+
+    <button class="btn-deposer" (click)="deposerAnnonce()">
+      <img src="https://cdn-icons-png.flaticon.com/512/1828/1828919.png" class="nav-icon" />
+      Déposer une annonce
+    </button>
+  </nav>
+</header>
+
+<!-- TITRE -->
+<section class="page-title">
+  <h1>Mes annonces</h1>
+  <p>Gérez vos annonces publiées ici. Vous pouvez modifier ou supprimer une annonce.</p>
+</section>
+
+<!-- LISTE DES ANNONCES -->
+<section class="annonces-list">
+  <div *ngIf="annonces.length === 0" class="empty-message">
+    Vous n'avez pas encore publié d'annonces.
+  </div>
+
+  <div class="annonce-card" *ngFor="let annonce of annonces">
+    <img 
+      [src]="annonce.photos.length > 0 ? annonce.photos[0] : 'https://via.placeholder.com/320x200?text=Pas+de+photo'" 
+      alt="Image annonce" 
+      class="annonce-image" 
+      (click)="voirDetail(annonce)"
+    />
+
+    <div class="annonce-content" (click)="voirDetail(annonce)">
+      <h2>{{ annonce.titre }}</h2>
+      <p class="categorie">{{ annonce.categorie }}</p>
+      <p class="prix">{{ annonce.prix | number }} DT</p>
+      <p class="localisation">{{ annonce.ville }} - {{ annonce.region }}</p>
+    </div>
+
+    <button class="btn-supprimer" (click)="supprimerAnnonce(annonce.id); $event.stopPropagation()">
+      <img src="https://cdn-icons-png.flaticon.com/512/1214/1214428.png" alt="Supprimer" />
+    </button>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div>Contactez-nous : +216 95 256 096 | Instagram : @mymeuble | Facebook : My Meuble | WhatsApp : +216 95 256 096</div>
+  <div>&copy; 2025 My Meuble - Développé par Yahia Haouani</div>
+</footer>

@@ -1,0 +1,110 @@
+/* Style général */
+.container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: auto;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* NAVBAR */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #ff6600;
+  padding: 10px 20px;
+  color: white;
+  flex-wrap: wrap;
+}
+
+.navbar .left {
+  display: flex;
+  flex-direction: column;
+}
+
+.navbar .logo {
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+}
+
+.logo-img {
+  width: 30px;
+  height: 30px;
+  margin-right: 8px;
+}
+
+.navbar nav {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.nav-icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+}
+
+.btn-deposer {
+  background-color: white;
+  color: #ff6600;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* FOOTER */
+.footer {
+  background: #ff6600;
+  padding: 20px;
+  margin-top: 30px;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #fff;
+}
+
+/* Carte d'annonce */
+.annonce-card {
+  background: white;
+  border-radius: 5px;
+  box-shadow: 0 0 8px rgba(0,0,0,0.1);
+  transition: transform 0.2s ease;
+  cursor: pointer;
+}
+
+.annonce-card:hover {
+  transform: translateY(-5px);
+}
+
+.badge {
+  font-size: 0.75rem;
+}
+
+.fav-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+/* Icônes Font Awesome */
+.fas.fa-heart.text-red-500 {
+  color: red;
+}
+
+.far.fa-heart.text-gray-400 {
+  color: gray;
+}

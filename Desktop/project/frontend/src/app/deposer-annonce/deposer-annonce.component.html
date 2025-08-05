@@ -1,0 +1,66 @@
+<!-- FORMULAIRE DE DÉPÔT D'ANNONCE -->
+<div *ngIf="afficherFormulaire" class="form-deposer-annonce" style="margin: 30px auto; border: 1px solid #ddd; padding: 20px; max-width: 600px; background: #fff; border-radius: 12px; box-shadow: 0 0 10px rgba(0,0,0,0.05);">
+  <h2 style="text-align: center; margin-bottom: 20px; color: #f57c00;">Déposer une annonce</h2>
+
+  <form (ngSubmit)="submitAnnonce()" #annonceForm="ngForm" style="display: flex; flex-direction: column; gap: 12px;">
+
+    <input type="text" placeholder="Titre" [(ngModel)]="newAnnonce.titre" name="titre" required class="input-style" />
+
+    <textarea placeholder="Description" [(ngModel)]="newAnnonce.description" name="description" required rows="4" class="input-style"></textarea>
+
+    <input type="number" placeholder="Prix en Dinar" [(ngModel)]="newAnnonce.prix" name="prix" required class="input-style" />
+
+    <select [(ngModel)]="newAnnonce.region" name="region" required class="input-style">
+  <option value="">région</option>
+  <option>ariana</option>
+  <option>béja</option>
+  <option>ben arous</option>
+  <option>bizerte</option>
+  <option>gabès</option>
+  <option>gafsa</option>
+  <option>jendouba</option>
+  <option>kairouan</option>
+  <option>kasserine</option>
+  <option>kebili</option>
+  <option>la manouba</option>
+  <option>le kef</option>
+  <option>médenine</option>
+  <option>monastir</option>
+  <option>nabeul</option>
+  <option>sfax</option>
+  <option>sidi bouzid</option>
+  <option>siliana</option>
+  <option>sousse</option>
+  <option>tataouine</option>
+  <option>tozeur</option>
+  <option>tunis</option>
+  <option>zaghouan</option>
+</select>
+
+
+
+    <select [(ngModel)]="newAnnonce.categorie" name="categorie" required class="input-style">
+      <option value="" disabled selected>Choisir une catégorie</option>
+      <option *ngFor="let cat of categories" [value]="cat">{{ cat }}</option>
+    </select>
+
+    <input type="text" placeholder="Téléphone" [(ngModel)]="newAnnonce.telephone" name="telephone" required class="input-style" />
+
+    <label style="margin-top: 10px;">Photos (plusieurs fichiers possibles) :</label>
+    <input type="file" (change)="onFileChange($event)" multiple />
+
+    <div class="preview-images" *ngIf="previewUrls.length > 0" style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px;">
+      <img *ngFor="let url of previewUrls" [src]="url" alt="preview" style="width: 80px; height: 80px; object-fit: cover; border-radius: 6px; border: 1px solid #ccc;" />
+    </div>
+
+    <div style="margin-top: 20px; display: flex; justify-content: space-between;">
+      <button type="submit" [disabled]="!annonceForm.form.valid" style="background: #f57c00; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer;">
+        Publier l'annonce
+      </button>
+
+      <button type="button" (click)="cancel()">Annuler</button>
+
+    </div>
+
+  </form>
+</div>

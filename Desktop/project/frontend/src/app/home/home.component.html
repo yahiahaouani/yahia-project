@@ -1,0 +1,149 @@
+<!-- NAVBAR -->
+<header class="navbar" style="display:flex; justify-content:space-between; align-items:center; padding:10px 20px; background:#ff6600; color:white; flex-wrap:wrap;">
+  <div class="left" style="display:flex; flex-direction: column; gap: 5px;">
+    <div class="logo" style="display:flex; align-items:center; gap:10px; font-weight:bold; font-size:1.2rem; cursor:pointer;">
+      <img src="https://cdn-icons-png.flaticon.com/512/3144/3144456.png" alt="Logo" class="logo-img" style="width:32px; height:32px;" />
+      <span>Le Bon Coin</span>
+    </div>
+    <div class="contact" style="font-size:0.9rem;">Contactez-nous : +216 95 256 096</div>
+    <div style="font-size:0.8rem;">Développé par l'ingénieur Yahia Haouani</div>
+  </div>
+
+  <nav style="display:flex; gap:15px; align-items:center; flex-wrap:wrap;">
+    <!-- Mes annonces -->
+    <a (click)="router.navigate(['/mes-annonces'])" class="nav-link" style="cursor:pointer; display:flex; align-items:center; gap:5px; color:white; text-decoration:none;">
+      <img src="https://cdn-icons-png.flaticon.com/512/1828/1828859.png" class="nav-icon" alt="Mes annonces" style="width:20px; height:20px;" />
+      Mes annonces
+    </a>
+
+    <!-- Mes favoris -->
+    <a (click)="allerMesFavoris()" class="nav-link" style="cursor:pointer; display:flex; align-items:center; gap:5px; color:white; text-decoration:none;">
+      <img src="https://cdn-icons-png.flaticon.com/512/149/149217.png" class="nav-icon" alt="Mes favoris" style="width:20px; height:20px;" />
+      Mes favoris
+    </a>
+
+    <ng-container *ngIf="user; else loginLink">
+      <div class="nav-link user-info" style="display:flex; align-items:center; gap:10px; color:white;">
+        <!-- Afficher nom utilisateur si voulu -->
+        <!-- <span>{{ user.nom }}</span> -->
+        <a (click)="logout()" class="nav-link logout-link" style="cursor:pointer; display:flex; align-items:center; gap:5px; color:white; text-decoration:none;">
+          <img src="https://cdn-icons-png.flaticon.com/512/1828/1828427.png" class="nav-icon logout-icon" alt="Déconnexion" style="width:20px; height:20px;" />
+          Déconnexion
+        </a>
+      </div>
+    </ng-container>
+
+    <ng-template #loginLink>
+      <a routerLink="/login" class="nav-link" style="display:flex; align-items:center; gap:5px; color:white; text-decoration:none;">
+        <img src="https://cdn-icons-png.flaticon.com/512/64/64572.png" class="nav-icon" alt="Se connecter" style="width:20px; height:20px;" />
+        Se connecter
+      </a>
+    </ng-template>
+
+    <!-- Déposer une annonce -->
+    <a (click)="deposerAnnonce()" class="nav-link btn-deposer" style="cursor:pointer; display:flex; align-items:center; gap:5px; color:white; font-weight:bold; text-decoration:none;">
+      <img src="https://cdn-icons-png.flaticon.com/512/32/32339.png" class="nav-icon" alt="Déposer une annonce" style="width:20px; height:20px;" />
+      Déposer une annonce
+    </a>
+  </nav>
+</header>
+
+<!-- RECHERCHE -->
+<div class="search-container" style="margin: 20px auto; max-width: 600px; display:flex; gap:10px;">
+  <input type="text" placeholder="Rechercher un bien..." [(ngModel)]="rechercheTexte" style="flex-grow:1; padding:8px; font-size:1rem; border:1px solid #ccc; border-radius:4px;" />
+  <button class="btn-search" (click)="onChercher()" style="padding: 8px 16px; background:#ff6600; border:none; color:white; border-radius:4px; cursor:pointer;">
+    Chercher
+  </button>
+</div>
+
+<!-- FILTRES -->
+<h2 style="text-align:center; margin-bottom:10px;">Filtres</h2>
+<div class="filters" style="max-width: 600px; margin: 0 auto 30px; display:flex; gap:10px; justify-content:center;">
+  <select [(ngModel)]="filtreCategorie" (change)="appliquerFiltres()" style="padding:8px; border-radius:4px; border:1px solid #ccc;">
+    <option value="">Catégorie</option>
+    <option *ngFor="let cat of categories" [value]="cat">{{ cat }}</option>
+  </select>
+
+<select [(ngModel)]="filtreVille" (change)="appliquerFiltres()" style="padding:8px; border-radius:4px; border:1px solid #ccc;">
+  
+  <option value="">région</option>
+  <option>ariana</option>
+  <option>béja</option>
+  <option>ben arous</option>
+  <option>bizerte</option>
+  <option>gabès</option>
+  <option>gafsa</option>
+  <option>jendouba</option>
+  <option>kairouan</option>
+  <option>kasserine</option>
+  <option>kebili</option>
+  <option>la manouba</option>
+  <option>le kef</option>
+  <option>médenine</option>
+  <option>monastir</option>
+  <option>nabeul</option>
+  <option>sfax</option>
+  <option>sidi bouzid</option>
+  <option>siliana</option>
+  <option>sousse</option>
+  <option>tataouine</option>
+  <option>tozeur</option>
+  <option>tunis</option>
+  <option>zaghouan</option>
+</select>
+
+
+
+  <select [(ngModel)]="filtrePrixMax" (change)="appliquerFiltres()" style="padding:8px; border-radius:4px; border:1px solid #ccc;">
+    <option value="">Prix Max</option>
+    <option [value]="100000">100000</option>
+    <option [value]="200000">200000</option>
+    <option [value]="300000">300000</option>
+    <option [value]="500000">500000</option>
+  </select>
+</div>
+
+<!-- LISTE ANNONCES FILTREES -->
+<div class="annonces" style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; margin-top: 20px; max-width: 1200px; margin-left:auto; margin-right:auto;">
+  <div 
+    class="annonce-card" 
+    *ngFor="let annonce of annoncesFiltrees" 
+    (click)="allerDetail(annonce)" 
+    style="width: 280px; border: 1px solid #ddd; padding: 10px; position: relative; cursor: pointer; border-radius:6px; box-shadow: 0 2px 6px rgb(0 0 0 / 0.1); transition: box-shadow 0.3s;"
+    (mouseenter)="hover=true" (mouseleave)="hover=false"
+  >
+    <img 
+      [src]="annonce.photos.length > 0 ? annonce.photos[0] : 'https://via.placeholder.com/280x180?text=Pas+de+photo'" 
+      alt="image annonce" 
+      style="width: 100%; height: 180px; object-fit: cover; border-radius: 4px;"
+    />
+
+    <!-- BOUTON COEUR -->
+    <button 
+      class="fav-btn" 
+      (click)="toggleFavori(annonce); $event.stopPropagation()" 
+      aria-label="Ajouter aux favoris"
+      [title]="annonce.favori ? 'Retirer des favoris' : 'Ajouter aux favoris'"
+      style="position: absolute; top: 10px; right: 10px; background: transparent; border: none; cursor: pointer;"
+    >
+      <i 
+        [ngClass]="annonce.favori ? 'fas fa-heart text-red-500' : 'far fa-heart text-gray-400'" 
+        style="font-size: 20px;"
+      ></i>
+    </button>
+
+    <div class="annonce-info" style="margin-top: 10px;">
+      <h2 style="font-size: 1.1rem; margin-bottom: 5px;">{{ annonce.titre }}</h2>
+      <p class="categorie" style="font-style: italic; color: #555;">{{ annonce.categorie }}</p>
+      <p class="prix" style="font-weight: bold; color: #222;">{{ annonce.prix | number }} DT</p>
+      <p class="localisation" style="color: #666;">{{ annonce.ville }} - {{ annonce.region }}</p>
+      <p class="telephone" style="color: #333; font-weight: 600;">📞 {{ annonce.telephone }}</p>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer" style="background:#ff6600; padding: 20px; margin-top: 30px; text-align: center; font-size: 0.9rem; color: #fff;">
+  <div>Contactez-nous : +216 95 256 096 | Instagram : <a href="https://instagram.com/mymeuble" target="_blank" style="color:#fff; text-decoration:underline;">@mymeuble</a> | Facebook : <a href="https://facebook.com/mymeuble" target="_blank" style="color:#fff; text-decoration:underline;">My Meuble</a> | WhatsApp : +216 95 256 096</div>
+  <div style="margin-top: 10px;">&copy; 2025 My Meuble - Développé par Yahia Haouani</div>
+</footer>

@@ -1,0 +1,57 @@
+<!-- HEADER -->
+<header class="navbar">
+  <div class="left">
+    <div class="logo">
+      <img src="https://cdn-icons-png.flaticon.com/512/3144/3144456.png" alt="Logo" class="logo-img" />
+      <span>My Meuble</span>
+    </div>
+    <div class="contact">Contactez-nous : +216 95 256 096</div>
+    <div>Développé par l'ingénieur Yahia Haouani</div>
+  </div>
+
+  <nav>
+    <a routerLink="/favoris" style="cursor: pointer;">
+      <img src="https://cdn-icons-png.flaticon.com/512/1077/1077035.png" class="nav-icon" />
+      Mes favoris
+    </a>
+    <a routerLink="/login">
+      <img src="https://cdn-icons-png.flaticon.com/512/747/747376.png" class="nav-icon" />
+      Se connecter
+    </a>
+    <button class="btn-deposer" routerLink="/deposer">
+      <img src="https://cdn-icons-png.flaticon.com/512/1828/1828919.png" class="nav-icon" />
+      Déposer une annonce
+    </button>
+  </nav>
+</header>
+
+<!-- DÉTAIL DE L'ANNONCE -->
+<div class="container-detail" *ngIf="!isLoading && annonce">
+  <h1>{{ annonce.titre }}</h1>
+
+  <div class="detail-meta">
+    <span>📍 {{ annonce.ville }} - {{ annonce.region }}</span>
+    <span>📞 {{ annonce.telephone }}</span>
+  </div>
+
+  <div class="detail-price">{{ annonce.prix | number }} DT</div>
+
+  <div class="gallery">
+    <img *ngFor="let photo of annonce.photos" [src]="photo" alt="Photo" />
+  </div>
+
+  <div class="detail-description">{{ annonce.description }}</div>
+
+  <div class="contact-info">
+    Pour plus d'informations, contactez : <strong>{{ annonce.telephone }}</strong>
+  </div>
+</div>
+
+<div *ngIf="isLoading" class="loader">Chargement en cours...</div>
+<div *ngIf="errorMsg" class="error">{{ errorMsg }}</div>
+
+<!-- FOOTER -->
+<footer class="footer" style="background:#ff6600; padding: 20px; margin-top: 30px; text-align: center; font-size: 0.9rem; color: #fff;">
+  <div>Contactez-nous : +216 95 256 096 | Instagram : @mymeuble | Facebook : My Meuble | WhatsApp : +216 95 256 096</div>
+  <div style="margin-top: 10px;">&copy; 2025 My Meuble - Développé par Yahia Haouani</div>
+</footer>
